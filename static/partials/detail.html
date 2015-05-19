@@ -1,0 +1,60 @@
+<div class="mediadetail" ng-controller="MediaDetailCtrl">
+  <div>
+  <h1>{{ name }}</h1>
+
+  <div class="panel panel-default opacity9"
+       ng-if="shared_data.vids.seasons[name][0] == 0 ||
+              shared_data.vids.seasons[name].length == 1">
+    <div class="panel-body">
+      <div ng-repeat="episode in shared_data.detail[name] |
+      filter:shared_data.search_text"
+          ng-if="episode.season == shared_data.vids.seasons[name][0]"
+          ng-click="click_video(episode)"
+          class="min-padding"
+          ng-class="progressToClass(episode.position)">
+        <div class="progress-wrapper">
+          <progressbar animate="false" value="episode.position" max="1000">
+          </progressbar>
+            <div ng-class="episode.class"></div>
+
+            <div class="progress-overlay" ng-if="isWatched(episode.position)"
+                 tooltip="{{ episode.ep }}" tooltip-append-to-body="true">
+              {{ episode.ep }}
+            </div>
+
+            <div class="progress-overlay"
+                 ng-if="isWatched(episode.position) == false">{{ episode.ep }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <accordion ng-if="shared_data.vids.seasons[name].length > 1">
+    <div ng-repeat="season in shared_data.vids.seasons[name]" class="opacity9">
+      <accordion-group is-open="firstUnwatchedSeason(name,
+      season)" ng-if="season > 0 && seasonNotEmpty(season, name)">
+        <accordion-heading>
+          {{seasonName(season, name)}}
+        </accordion-heading>
+        <div>
+          <div ng-repeat="episode in shared_data.detail[name] |
+          filter:shared_data.search_text"
+              ng-if="episode.season == season"
+              ng-click="click_video(episode)"
+              class="min-padding"
+              ng-class="progressToClass(episode.position)">
+            <div class="progress-wrapper">
+              <progressbar animate="false" value="episode.position"
+                           max="1000"></progressbar>
+                <div ng-class="episode.class"></div>
+                  <div class="progress-overlay">{{ episode.ep }}</div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </accordion-group>
+    </div>
+  </accordion>
+  </div>
+</div>

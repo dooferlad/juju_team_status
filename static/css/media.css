@@ -1,0 +1,142 @@
+/* Custom page CSS
+-------------------------------------------------- */
+
+.float-left-block {
+    float: left;
+    display: block;
+}
+
+.sprint-range-filler {
+  height: 220px;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+#footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.deselected {
+  background-color: #9999DD;
+  opacity: 0.0;
+}
+
+.selected {
+  background-color: yellow;
+  opacity: 0.3;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+}
+
+.watched {
+  background-color: FFFFdd;
+}
+
+.progress {
+  margin-bottom: 2px;
+  height: 40px;
+  position: relative;
+  background-color: #000000;
+}
+
+.progress-wrapper {
+  position: relative;
+}
+
+.progress-overlay {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  font-size: 20px;
+  height: 30px;
+  overflow: hidden;
+}
+
+.tooltip {
+  font-size: 18px;
+}
+
+table {
+  width: 100%;
+}
+
+.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.min-padding {
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+.panel-title {
+    font-size: 24px;
+}
+
+.opacity9 {
+    opacity: 0.85;
+}
+
+.shrinkwrap {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+
+.inlinebutton {
+  padding: 2px;
+  font-size: 8pt;
+  text-transform: none;
+}
+
+.indent {
+  padding-left: 20pt;
+}
+
+.row-even {
+  background-color: rgba(94, 39, 80, 0.12);
+}
+
+.row-odd {
+}
+
+.col-even {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.col-odd {
+}
+
+@media (max-width: 991px) {
+  .inline-mobile-only {
+    display: inline !important;
+  }
+}
+
+.btn.active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.bugname {
+  width: 50%;
+}
+@media (max-width: 991px) {
+  .bugname {
+    width: 100%;
+  }
+}
+
+.milestone-picker {
+  width: 15%;
+}
