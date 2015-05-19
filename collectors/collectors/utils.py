@@ -12,7 +12,7 @@ import lazr
 BASE_DIR = os.path.dirname(__file__)
 client = pymongo.MongoClient()
 db = client['juju_team_status']
-very_cached = True
+very_cached = False
 
 
 class MessageBroadcaster:
@@ -48,8 +48,6 @@ class DBEntry:
         if data is not None:
             status = self._collection.update(self._query, data, upsert=True)
             if status['nModified'] == 0:
-                print "Found update!"
-                pprint(data)
                 self._message.updated()
 
     def __enter__(self):
@@ -67,9 +65,6 @@ class DBEntry:
             self.public_entry['_id'] = self._entry['_id']
         if self.public_entry != self._entry:
             self._collection.save(self.public_entry)
-            print "Found update!"
-            pprint(self.public_entry)
-            pprint(self._entry)
             self._message.updated()
 
 
