@@ -45,6 +45,10 @@ mediaControllers.controller('ToolbarCtrl', ['$scope', '$http', '$interval',
         $scope.bugs = data;
       });
 
+      /*$http.get('/API/cards').success(function (data) {
+        $scope.cards = data;
+      });*/
+
       $http.get('/API/meta').success(function (data) {
         data.some(function (entry) {
           if (entry.url === 'https://api.launchpad.net/1.0/juju-core') {
@@ -203,4 +207,24 @@ mediaControllers.controller('ToolbarCtrl', ['$scope', '$http', '$interval',
       }
       return task.status || task.importance;
     };
+
+    $scope.searchUser = "dooferlad";
+    $scope.my_name = "James Tunnicliffe";
+
+    $scope.myCardsFilter = function(card) {
+      if(card.Board){
+          return false;
+      }
+
+      var assigned_to_me = false;
+      card.AssignedUsers.some(function(user){
+        if(user.AssignedUserName == $scope.my_name){
+          assigned_to_me = true;
+          return true;
+        }
+        return false;
+      });
+
+      return assigned_to_me;
+    }
   }]);

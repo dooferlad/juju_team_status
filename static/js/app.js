@@ -5,7 +5,7 @@
 var mediaApp = angular.module('mediaApp', [
   'ngRoute',
   'mediaControllers',
-  //'ui.bootstrap'
+  'ui.bootstrap'
 ]);
 
 mediaApp.config(['$routeProvider',
@@ -13,6 +13,12 @@ mediaApp.config(['$routeProvider',
         $routeProvider.
             when('/', {
                 templateUrl: '/partials/list.html'
+            }).
+            when('/bugs', {
+                templateUrl: '/partials/list.html'
+            }).
+            when('/next', {
+                templateUrl: '/partials/next.html'
             }).
             otherwise({ redirectTo: '/' });
     }]);

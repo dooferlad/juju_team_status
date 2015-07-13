@@ -1,6 +1,6 @@
 <div class="panel panel-default opacity9">
 
-  <div class="block-group"
+  <div class="block-group">
     <span class="input-group-addon">
       <label>Search: <input ng-model="searchText"></label>
     </span>
@@ -46,19 +46,19 @@
     </div>
 
     <div ng-repeat="task in bug.tasks | filter: showTaskMilestone" class="block visible-xs visible-sm" ng-if="showMilestoneSmall(task)">
-      &nbsp;
       <span ng-if="task_filter(task)">
         <span class="label inline-mobile-only">{{ task.milestone }}</span>
         <span class="label" ng-class="bugLabelImportance(task)">{{ task.importance }}</span>
         <span class="label" ng-class="bugLabelStatus(task)">{{ task.status }}</span>
       </span>
+      <span ng-if="!task_filter(task)">&nbsp;</span>
     </div>
     <div ng-repeat="task in bug.tasks | filter: showTaskMilestone" class="block milestone hidden-xs hidden-sm" ng-class="colClass($even)">
-      &nbsp;
       <span ng-if="task_filter(task)">
         <span class="label" ng-class="bugLabelImportance(task)">{{ task.importance }}</span>
         <span class="label" ng-class="bugLabelStatus(task)">{{ task.status }}</span>
       </span>
+      <span ng-if="!task_filter(task)">&nbsp;</span>
     </div>
   </div>
 </div>
