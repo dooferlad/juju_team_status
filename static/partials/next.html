@@ -1,0 +1,88 @@
+<div class="panel panel-default opacity9">
+  <div class="block-group">
+    <span class="input-group-addon">
+      <label>Search: <input ng-model="searchText"></label>
+    </span>
+  </div>
+
+  <div>
+    <span ng-repeat="milestone in milestones">
+      <input type="checkbox" ng-model="filters.milestones[$index]">
+      <span>
+        {{ milestone }}
+      </span>
+    </span>
+  </div>
+
+  <div>
+    <span ng-repeat="status in status_options">
+      <input type="checkbox" ng-model="ignore_bugs_with_status[$index]">
+      <span>{{ status }}</span>
+    </span>
+  </div>
+
+  <div>
+    <span ng-repeat="status in priority_options">
+      <input type="checkbox" ng-model="ignore_bugs_with_priority[$index]">
+      <span>{{ status }}</span>
+    </span>
+  </div>
+
+
+  <div class="block-group">
+    <div class="bugname block">&nbsp;</div>
+    <div ng-repeat="milestone in milestones | filter: milestone_filter" class="milestone block">
+      <span class="label hidden-xs hidden-sm">{{ milestone }}</span>
+    </div>
+  </div>
+
+  <div class="block-group" ng-repeat="bug in bugs | filter:bug_filter | filter:searchUser | filter:searchText" ng-class="rowClass($even)">
+    <div class="bugname block">
+      <a href="{{ bug.web_link }}">{{ bug.id }}: {{ bug.title }}</a>
+      <span ng-repeat="tag in bug.tags">
+        <span class="label">{{ tag }}</span>
+      </span>
+    </div>
+
+    <div ng-repeat="task in bug.tasks | filter: showTaskMilestone" class="block visible-xs visible-sm" ng-if="showMilestoneSmall(task)">
+      &nbsp;
+      <span ng-if="task_filter(task)">
+        <span class="label inline-mobile-only">{{ task.milestone }}</span>
+        <span class="label" ng-class="bugLabelImportance(task)">{{ task.importance }}</span>
+        <span class="label" ng-class="bugLabelStatus(task)">{{ task.status }}</span>
+      </span>
+    </div>
+    <div ng-repeat="task in bug.tasks | filter: showTaskMilestone" class="block milestone hidden-xs hidden-sm" ng-class="colClass($even)">
+      &nbsp;
+      <span ng-if="task_filter(task)">
+        <span class="label" ng-class="bugLabelImportance(task)">{{ task.importance }}</span>
+        <span class="label" ng-class="bugLabelStatus(task)">{{ task.status }}</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default opacity9">
+  <h2>Cards</h2>
+<div layout="column">
+  <div ng-repeat="card in cards | filter:myCardsFilter"
+      class="min-padding">
+    <a href="{{ card.CardUrl }}">{{ card.Title }}</a>
+    <span class="label" ng-class="cardLaneLabel(card)">{{ card.LaneTitle }}</span>
+    <div ng-repeat="task in card.Tasks" class="indent">
+      {{ task.Title }} <!--span class="label" ng-class="cardLaneLabel(task)">{{ task.LaneTitle }}</span-->
+      <div class="btn-group shrinkwrap" dropdown is-open="task.isopen">
+        <button type="button" class="btn dropdown-toggle inlinebutton" ng-class="cardButtonClass(task)" dropdown-toggle ng-disabled="disabled">
+          {{ task.LaneTitle }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#/" ng-click="taskUpdate(card, task, 'ToDo')">ToDo</a></li>
+          <li><a href="#/" ng-click="taskUpdate(card, task, 'Doing')">Doing</a></li>
+          <li><a href="#/" ng-click="taskUpdate(card, task, 'Done')">Done</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

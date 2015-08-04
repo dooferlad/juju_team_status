@@ -32,12 +32,12 @@ type ServerState struct {
 }
 
 type ServerSettings struct {
-	LpTeam      string "lp_team"
-	CookeSecret []byte "cookieSecret"
-	Hostname    string "hostname"
-	PublicPort  int    "public_port"
-	ExternalPort  int    "external_port"
-	PrivatePort int    "private_port"
+	LpTeam       string "lp_team"
+	CookeSecret  []byte "cookieSecret"
+	Hostname     string "hostname"
+	PublicPort   int    "public_port"
+	ExternalPort int    "external_port"
+	PrivatePort  int    "private_port"
 }
 
 type LaunchpadTeam struct {
