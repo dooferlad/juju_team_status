@@ -8,7 +8,8 @@ from utils import (
     MessageBroadcaster,
     DBEntry,
 )
-
+import time
+import requests
 
 BASE_DIR = os.path.dirname(__file__)
 client = pymongo.MongoClient()
@@ -52,4 +53,9 @@ if __name__ == '__main__':
     with open(os.path.join(BASE_DIR, '..', '..', 'settings.yaml')) as s:
         settings = yaml.load(s.read())
 
-    collect(settings['lp_teams'])
+    while True:
+        try:
+            collect(settings['lp_teams'])
+            exit(0)
+        except requests.exceptions.ConnectionError:
+            time.sleep(10)
