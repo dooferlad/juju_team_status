@@ -10,10 +10,8 @@ from utils import (
     CollectorHelpers,
     copy_fields,
     MessageBroadcaster,
-    DBEntryExact,
-    DBEntry,
 )
-from pprint import pprint
+import requests
 
 
 BASE_DIR = os.path.dirname(__file__)
@@ -149,7 +147,12 @@ def get_bugs(ch):
 def collect(very_cached=False):
     with MessageBroadcaster() as message:
         ch = CollectorHelpers(message, very_cached)
-        get_bugs(ch)
+        while True:
+            try:
+                get_bugs(ch)
+                return
+            except requests.exceptions.ConnectionError:
+                time.sleep(10)
 
 
 if __name__ == '__main__':

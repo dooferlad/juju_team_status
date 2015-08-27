@@ -309,10 +309,23 @@ type ChatMessage struct {
 }
 
 func (server *ServerState) say(msg ChatMessage) {
+	// First ensure we think we have joined this channel. If not it is a
+	// new direct chat and we still need to list nics in the chans collection
+	n, err := server.chans.Find(bson.M{"channelName": msg.Channel}).Count()
+	if err != nil || n == 0 {
+		cd := ChannelData{
+			ChannelName: msg.Channel,
+			Names:       []string{msg.Name},
+		}
+
+		server.chans.Insert(cd)
+	}
+
+	// Assemble the message document and save it
 	now := time.Now()
 	msg.Timestamp = now.UnixNano() / (1000 * 1000)
 
-	err := server.chatMessages.Insert(msg)
+	err = server.chatMessages.Insert(msg)
 	if err != nil {
 		fmt.Printf("Error recording message for channel %s\n", msg.Channel)
 		here.Is(err)
